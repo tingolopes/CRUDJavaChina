@@ -20,6 +20,7 @@ public class Usuario implements EntidadeBase {
     @Column(nullable = false)
     private String senha;
 
+    @Override
     public Integer getId() {
         return id;
     }

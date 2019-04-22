@@ -39,6 +39,7 @@ public class Produto implements EntidadeBase{
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "produtos")
     private List<ItensVenda> itensvenda;
 
+    @Override
     public Integer getId() {
         return id;
     }

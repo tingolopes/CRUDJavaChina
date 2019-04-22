@@ -22,6 +22,7 @@ public class Categoria implements EntidadeBase {
     @Column(nullable = false)
     private String descricao;
 
+    @Override
     public Integer getId() {
         return id;
     }

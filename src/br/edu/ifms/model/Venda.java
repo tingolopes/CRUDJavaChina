@@ -35,6 +35,7 @@ public class Venda implements EntidadeBase {
     @OneToMany(mappedBy = "venda")
     private List<ItensVenda> itensvenda;
 
+    @Override
     public Integer getId() {
         return id;
     }

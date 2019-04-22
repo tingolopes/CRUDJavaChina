@@ -23,6 +23,7 @@ public class Cliente implements EntidadeBase {
     @Column(nullable = false)
     private String endereco;
 
+    @Override
     public Integer getId() {
         return id;
     }

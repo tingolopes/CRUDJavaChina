@@ -42,6 +42,7 @@ public class ItensVenda implements EntidadeBase {
             inverseJoinColumns = @JoinColumn(name = "id_produto"))
     private List<Produto> produtos;
 
+    @Override
     public Integer getId() {
         return id;
     }
