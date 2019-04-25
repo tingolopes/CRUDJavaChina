@@ -2,11 +2,9 @@ package br.edu.ifms.view;
 
 import br.edu.ifms.model.Categoria;
 import br.edu.ifms.model.Produto;
-import br.edu.ifms.connection.ConectaDB;
 import br.edu.ifms.dao.DaoGenerico;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -21,15 +19,10 @@ import br.edu.ifms.tablemodel.ProdutoTableModel;
  */
 public class frmProduto extends javax.swing.JInternalFrame {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-
     public frmProduto(Integer id) {
         initComponents();
         txtIdUsuario.setText(String.valueOf(id));
         this.setLocation(350, 20);
-        conn = ConectaDB.conecta();
         listarProduto();
         populaJComboBox();
         dataHoje();

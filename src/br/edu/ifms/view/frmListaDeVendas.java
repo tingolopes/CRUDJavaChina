@@ -6,14 +6,10 @@
 package br.edu.ifms.view;
 
 import br.edu.ifms.model.Venda;
-import br.edu.ifms.connection.ConectaDB;
 import br.edu.ifms.dao.DaoGenerico;
 import br.edu.ifms.model.ItensVenda;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -28,14 +24,9 @@ import java.util.List;
  */
 public class frmListaDeVendas extends javax.swing.JInternalFrame {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-
     public frmListaDeVendas() {
         initComponents();
         this.setLocation(300, 100);
-        conn = ConectaDB.conecta();
         listarVendas();
         listarItensDaVenda(0);
         

@@ -1,7 +1,6 @@
 package br.edu.ifms.view;
 
 import br.edu.ifms.model.Usuario;
-import br.edu.ifms.connection.ConectaDB;
 import br.edu.ifms.dao.DaoGenerico;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -18,14 +17,9 @@ import br.edu.ifms.tablemodel.UsuarioTableModel;
  */
 public class frmUsuario extends javax.swing.JInternalFrame {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-
     public frmUsuario() {
         initComponents();
         this.setLocation(400, 100);
-        conn = ConectaDB.conecta();
         listarUsuarios();
 
         setLayout(new BorderLayout());

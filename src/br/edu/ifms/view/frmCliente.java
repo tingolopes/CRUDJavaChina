@@ -1,11 +1,9 @@
 package br.edu.ifms.view;
 
 import br.edu.ifms.model.Cliente;
-import br.edu.ifms.connection.ConectaDB;
 import br.edu.ifms.dao.DaoGenerico;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -18,14 +16,9 @@ import br.edu.ifms.tablemodel.ClienteTableModel;
  */
 public class frmCliente extends javax.swing.JInternalFrame {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-
     public frmCliente() {
         initComponents();
         this.setLocation(400, 100);
-        conn = ConectaDB.conecta();
         listarCliente();
 
         setLayout(new BorderLayout());
