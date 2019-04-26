@@ -1,6 +1,7 @@
 package br.edu.ifms.tablemodel;
 
 import br.edu.ifms.model.Venda;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -10,7 +11,8 @@ import javax.swing.table.AbstractTableModel;
  * @author Michell
  * @author Kleber
  */
-public class VendaTableModel extends AbstractTableModel{
+public class VendaTableModel extends AbstractTableModel {
+
     final List<String> cabecalho;
     private List<Venda> listaDeVendas;
 
@@ -44,19 +46,20 @@ public class VendaTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        switch(columnIndex){
+        switch (columnIndex) {
             case 0:
                 //retornar o id
-                return listaDeVendas.get(rowIndex).getId();                
+                return listaDeVendas.get(rowIndex).getId();
             case 1:
                 //retornar o nome produto
                 return listaDeVendas.get(rowIndex).getCliente().getNome();
             case 2:
-                //retornar a qtd
-                return listaDeVendas.get(rowIndex).getDatavenda();
+                //retornar a data da venda
+                return new SimpleDateFormat("dd/MM/yyyy").
+                        format(listaDeVendas.get(rowIndex).getDatavenda());
             default:
                 return null;
         }
     }
-    
+
 }

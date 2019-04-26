@@ -1,18 +1,32 @@
-insert into cliente (nome, endereco) VALUES ('Ze', 'Casa do ze');
-insert into cliente (nome, endereco) VALUES ('Pedro', 'Casa do pedro');
-insert into cliente (nome, endereco) VALUES ('Lucas', 'Casa do lucas');
-insert into cliente (nome, endereco) VALUES ('Fernando', 'Casa do fernando');
+INSERT INTO `categoria` (`id`, `descricao`, `nome`) VALUES
+(1, 'Gêneros alimentícios', 'Alimentos'),
+(2, 'Roupas diversas', 'Roupa'),
+(3, 'Calçados diversos', 'Calçados');
 
-insert into categoria (descricao, nome) values ('Coisas de comer', 'Comida');
-insert into categoria (descricao, nome) values ('Coisas de usar', 'Roupas');
-insert into categoria (descricao, nome) values ('Coisas de usar', 'Calçado');
+INSERT INTO `cliente` (`id`, `endereco`, `nome`) VALUES
+(1, 'Rua A', 'Michell'),
+(2, 'Rua B', 'Kleber'),
+(3, 'Rua C', 'Gabriel');
 
-INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES (NULL, '2019-04-21', 'Cebola', '12', '1');
-INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES (NULL, '2019-04-21', 'Alho', '4', '1');
-INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES (NULL, '2019-04-21', 'Sal', '16', '1');
-INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES (NULL, '2019-04-21', 'Pimenta', '72', '1');
-INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES (NULL, '2019-04-21', 'Bife', '15', '1');
-INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES (NULL, '2019-04-21', 'Laranja', '23', '1');
-INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES (NULL, '2019-04-21', 'Blusa', '66', '2');
-INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES (NULL, '2019-04-21', 'Calça', '99', '2');
-INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES (NULL, '2019-04-21', 'Meia', '23', '2');
+INSERT INTO `itensvenda` (`id`, `precoProduto`, `qtd`, `totalProduto`, `id_produto`, `id_venda`) VALUES
+(1, 59, 4, 236, 1, 1),
+(2, 28, 2, 56, 2, 1),
+(3, 34, 3, 102, 3, 1),
+(4, 45, 2, 90, 1, 2),
+(5, 34, 3, 102, 3, 2);
+
+INSERT INTO `produto` (`id`, `datacadastro`, `nome`, `preco`, `id_categoria`) VALUES
+(1, '2019-04-26', 'Picanha', 45, 1),
+(2, '2019-04-26', 'Alcatra', 28, 1),
+(3, '2019-04-26', 'Filé', 34, 1),
+(4, '2019-04-26', 'Blusa', 78, 2),
+(5, '2019-04-26', 'Calça', 99, 2),
+(6, '2019-04-26', 'Tenis', 340, 3),
+(7, '2019-04-26', 'Chinelo', 23.5, 3);
+
+INSERT INTO `usuario` (`id`, `login`, `nome`, `senha`) VALUES
+(1, 'admin', 'admin', 'admin');
+
+INSERT INTO `venda` (`id`, `datavenda`, `id_cliente`) VALUES
+(1, '2019-04-26', 2),
+(2, '2019-04-26', 2);
