@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 /**
@@ -36,7 +37,7 @@ public class Produto implements EntidadeBase{
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
     
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "produtos")
+    @OneToMany(mappedBy = "produtos")
     private List<ItensVenda> itensvenda;
 
     @Override
@@ -105,6 +106,12 @@ public class Produto implements EntidadeBase{
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Produto{" + "id=" + id + ", nome=" + nome + ", preco=" + preco + ", datacadastro=" + datacadastro + ", categoria=" + categoria + ", itensvenda=" + itensvenda + '}';
+    }
+    
     
     
 }

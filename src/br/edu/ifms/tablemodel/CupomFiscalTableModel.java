@@ -64,11 +64,10 @@ public class CupomFiscalTableModel extends AbstractTableModel {
                 return listaDeItensDaVenda.get(rowIndex).getQtd();
             case 2:
                 //retornar o preço
-                return df.format(listaDeItensDaVenda.get(rowIndex).getProdutos().getPreco());
+                return df.format(listaDeItensDaVenda.get(rowIndex).getPrecoProduto());
             case 3:
                 //retornar a soma
-                return df.format(listaDeItensDaVenda.get(rowIndex).getQtd()
-                        * listaDeItensDaVenda.get(rowIndex).getProdutos().getPreco());
+                return df.format(listaDeItensDaVenda.get(rowIndex).getTotalProduto());
             default:
                 return null;
         }

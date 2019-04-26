@@ -50,6 +50,8 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
 
     }
 
+    private Venda v;
+
     public final void dataHoje() {
         txtDataVenda.setFormats(new SimpleDateFormat("dd/MM/yyyy"));
         txtDataVenda.setDate(Calendar.getInstance().getTime());
@@ -95,6 +97,11 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         txtPesquisaCliente.setEnabled(false);
         jButtonNovaVenda.setEnabled(false);
         jButtonLimpaPesquisaCliente.setEnabled(false);
+        v = new Venda();
+        v.setCliente(new DaoGenerico<Cliente>().findById(Cliente.class, Integer.parseInt(txtIdCliente.getText())));
+        v.setDatavenda(txtDataVenda.getDate());
+        DaoGenerico<Venda> daov = new DaoGenerico<>();
+        daov.saveOrUpdate(v);
     }
 
     public void inserirProduto() {
@@ -102,24 +109,19 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         DaoGenerico<Cliente> daoc = new DaoGenerico<>();
         DaoGenerico<Produto> daop = new DaoGenerico<>();
         DaoGenerico<ItensVenda> daoiv = new DaoGenerico<>();
-        Venda v = new Venda();
-        if (txtNumeroVenda.getText().isEmpty()) {
-            v.setCliente(daoc.findById(Cliente.class, Integer.parseInt(txtIdCliente.getText())));
-            v.setDatavenda(txtDataVenda.getDate());
-            daov.saveOrUpdate(v);
-            int ultimaVenda = v.getId();
-            txtNumeroVenda.setText(String.valueOf(ultimaVenda));
-//            txtPesquisaCliente.setEnabled(false);
-//            jButtonNovaVenda.setEnabled(false);
-//            jButtonLimpaPesquisaCliente.setEnabled(false);
-        }
-
         ItensVenda iv = new ItensVenda();
         iv.setVenda(v);
-        System.out.println("O produto que será adicionado a lista é "
-                + daop.findById(Produto.class, Integer.parseInt(txtIdProduto.getText())).getNome());
+
+        System.out.println("Produto "
+                + daop.findById(Produto.class, Integer.parseInt(txtIdProduto.getText())).toString()
+                + " adicionado a venda "
+                + v.getId());
+
         iv.setProdutos(daop.findById(Produto.class, Integer.parseInt(txtIdProduto.getText())));
         iv.setQtd(Double.parseDouble(txtQtdProd.getText()));
+        iv.setTotalProduto(Double.parseDouble(txtQtdProd.getText())
+                * daop.findById(Produto.class, Integer.parseInt(txtIdProduto.getText())).getPreco());
+        iv.setPrecoProduto(daop.findById(Produto.class, Integer.parseInt(txtIdProduto.getText())).getPreco());
         daoiv.saveOrUpdate(iv);
         listarItensDaVenda(iv.getVenda().getId());
         habilitaPesquisaProduto();
@@ -140,7 +142,7 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         Double soma = 0.0;
         List<ItensVenda> lista = dao.findByNome(ItensVenda.class, String.valueOf(pesquisaPorId), "id_venda");
         for (int i = 0; i < lista.size(); i++) {
-            soma += lista.get(i).getProdutos().getPreco() * lista.get(i).getQtd();
+            soma += lista.get(i).getTotalProduto();
         }
         jLabelTotalCupom.setText(String.valueOf(df.format(soma)));
     }
@@ -368,6 +370,11 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         });
 
         btnFechaVenda.setText("Fechar Venda");
+        btnFechaVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFechaVendaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelVendaLayout = new javax.swing.GroupLayout(jPanelVenda);
         jPanelVenda.setLayout(jPanelVendaLayout);
@@ -624,6 +631,10 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
     private void txtPesquisaClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaClienteKeyReleased
         pesquisaDinamicaCliente();
     }//GEN-LAST:event_txtPesquisaClienteKeyReleased
+
+    private void btnFechaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaVendaActionPerformed
+        v = null;
+    }//GEN-LAST:event_btnFechaVendaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LimpaPesquisaProduto;

@@ -78,7 +78,7 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
         Double soma = 0.0;
         List<ItensVenda> lista = dao.findByNome(ItensVenda.class, String.valueOf(pesquisaPorId), "id_venda");
         for (int i = 0; i < lista.size(); i++) {
-            soma += lista.get(i).getProdutos().getPreco() * lista.get(i).getQtd();
+            soma += lista.get(i).getTotalProduto();
         }
         jLabelTotalCupom.setText(String.valueOf(df.format(soma)));
     }

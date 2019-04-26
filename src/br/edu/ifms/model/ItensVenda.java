@@ -5,7 +5,6 @@
  */
 package br.edu.ifms.model;
 
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
@@ -36,12 +33,16 @@ public class ItensVenda implements EntidadeBase {
     @JoinColumn(name = "id_venda")
     private Venda venda;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "itensvenda",
-            joinColumns = @JoinColumn(name = "id_itensvenda"),
-            inverseJoinColumns = @JoinColumn(name = "id_produto"))
-    private List<Produto> produtos;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_produto")
+    private Produto produtos;
+    
+    @Column(nullable = false)
+    private Double totalProduto;
+    
+    @Column(nullable = false)
+    private Double precoProduto;
+    
     @Override
     public Integer getId() {
         return id;
@@ -68,17 +69,30 @@ public class ItensVenda implements EntidadeBase {
     }
 
     public Produto getProdutos() {
-        Produto p = new Produto();
-        for (int i = 0; i < produtos.size(); i++) {
-            p = produtos.get(i);
-        }
-        return p;
+        return produtos;
     }
 
-    public void setProdutos(Produto produto) {
-        this.produtos.add(produto);
+    public void setProdutos(Produto produtos) {
+        this.produtos = produtos;
     }
 
+    public Double getTotalProduto() {
+        return totalProduto;
+    }
+
+    public void setTotalProduto(Double totalProduto) {
+        this.totalProduto = totalProduto;
+    }
+
+    public Double getPrecoProduto() {
+        return precoProduto;
+    }
+
+    public void setPrecoProduto(Double precoProduto) {
+        this.precoProduto = precoProduto;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 3;
