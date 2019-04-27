@@ -21,5 +21,7 @@ public class InsertTeste {
         u.setSenha("admin");
         new DaoGenerico<>().saveOrUpdate(u);
         
+        System.out.println("teste");
+        
     }
 }
