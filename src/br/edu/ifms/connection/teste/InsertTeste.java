@@ -22,6 +22,9 @@ public class InsertTeste {
         new DaoGenerico<>().saveOrUpdate(u);
         
         System.out.println("teste");
+        System.out.println("teste");
+        System.out.println("teste");
+        System.out.println("teste");
         
     }
 }
