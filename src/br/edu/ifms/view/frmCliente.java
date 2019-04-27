@@ -15,7 +15,7 @@ import br.edu.ifms.tablemodel.ClienteTableModel;
  * @author Kleber
  */
 public class frmCliente extends javax.swing.JInternalFrame {
-
+    
     public frmCliente() {
         initComponents();
         this.setLocation(400, 100);
