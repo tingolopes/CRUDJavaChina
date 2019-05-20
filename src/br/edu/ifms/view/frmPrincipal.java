@@ -8,18 +8,18 @@ package br.edu.ifms.view;
  */
 public class frmPrincipal extends javax.swing.JFrame {
 
-    private Integer idadmin;
+    private Integer idusuario;
 
-    public frmPrincipal(Integer idadmin) {
+    public frmPrincipal(Integer idusuario) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH); //maximizado
-        this.idadmin = idadmin;
+        this.idusuario = idusuario;
     }
 
     public frmPrincipal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH); //maximizado
-        this.idadmin = idadmin = 0;
+        this.idusuario = idusuario = 0;
     }
 
     @SuppressWarnings("unchecked")
@@ -29,7 +29,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         Cadastro = new javax.swing.JMenu();
-        menuAdmin = new javax.swing.JMenuItem();
+        menuUsuario = new javax.swing.JMenuItem();
         menuCategoria = new javax.swing.JMenuItem();
         menuCliente = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -55,16 +55,14 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         Cadastro.setText("Cadastro");
 
-        menuAdmin.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
-        menuAdmin.setText("Admin");
-        menuAdmin.addActionListener(new java.awt.event.ActionListener() {
+        menuUsuario.setText("Usuario");
+        menuUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAdminActionPerformed(evt);
+                menuUsuarioActionPerformed(evt);
             }
         });
-        Cadastro.add(menuAdmin);
+        Cadastro.add(menuUsuario);
 
-        menuCategoria.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
         menuCategoria.setText("Categoria");
         menuCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,7 +71,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         Cadastro.add(menuCategoria);
 
-        menuCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_MASK));
         menuCliente.setText("Produto");
         menuCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,12 +139,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_SairMouseClicked
 
-    private void menuAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAdminActionPerformed
-        frmUsuario form = new frmUsuario();
-        form.setVisible(true);
-        jDesktopPane1.add(form);
-    }//GEN-LAST:event_menuAdminActionPerformed
-
     private void menuCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCategoriaActionPerformed
         frmCategoria form = new frmCategoria();
         form.setVisible(true);
@@ -155,7 +146,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCategoriaActionPerformed
 
     private void menuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClienteActionPerformed
-        frmProduto form = new frmProduto(idadmin);
+        frmProduto form = new frmProduto(idusuario);
         form.setVisible(true);
         jDesktopPane1.add(form);
     }//GEN-LAST:event_menuClienteActionPerformed
@@ -178,6 +169,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         jDesktopPane1.add(form);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void menuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuarioActionPerformed
+        frmUsuario form = new frmUsuario();
+        form.setVisible(true);
+        jDesktopPane1.add(form);
+    }//GEN-LAST:event_menuUsuarioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Cadastro;
@@ -188,8 +185,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem menuAdmin;
     private javax.swing.JMenuItem menuCategoria;
     private javax.swing.JMenuItem menuCliente;
+    private javax.swing.JMenuItem menuUsuario;
     // End of variables declaration//GEN-END:variables
 }

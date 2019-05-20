@@ -98,10 +98,10 @@ public class frmCliente extends javax.swing.JInternalFrame {
         DaoGenerico<Cliente> dao = new DaoGenerico<>();
         int seleciona = tblCliente.getSelectedRow();
         int idCliente = (int) tblCliente.getModel().getValueAt(seleciona, 0);
-        Cliente admin = dao.findById(Cliente.class, idCliente);
-        txtIdCliente.setText(String.valueOf(admin.getId()));
-        txtNome.setText(admin.getNome());
-        txtEndereco.setText(admin.getEndereco());
+        Cliente cliente = dao.findById(Cliente.class, idCliente);
+        txtIdCliente.setText(String.valueOf(cliente.getId()));
+        txtNome.setText(cliente.getNome());
+        txtEndereco.setText(cliente.getEndereco());
     }
 
     public void limparCampos() {

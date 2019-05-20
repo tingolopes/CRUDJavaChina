@@ -229,7 +229,7 @@ public class frmProduto extends javax.swing.JInternalFrame {
 
         txtIdUsuario.setEditable(false);
 
-        jLabel5.setText("ID Admin");
+        jLabel5.setText("ID Usuário");
 
         jLabel6.setText("Cod. Categoria");
 

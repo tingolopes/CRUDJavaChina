@@ -35,7 +35,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
 
     }
 
-    public void cadastrarAdmin() {
+    public void cadastrarUsuario() {
         Usuario a = new Usuario();
         DaoGenerico<Usuario> dao = new DaoGenerico<>();
 
@@ -53,69 +53,69 @@ public class frmUsuario extends javax.swing.JInternalFrame {
         UsuarioTableModel modelo = new UsuarioTableModel();
         DaoGenerico<Usuario> dao = new DaoGenerico<>();
         modelo.setListaUsuario(dao.listaTodos(Usuario.class));
-        tblAdmin.setModel(modelo);
+        tblUsuario.setModel(modelo);
         ajustaTabela();
     }
 
     public void ajustaTabela() {
         //seta tamanho das colunas
-        tblAdmin.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tblAdmin.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tblAdmin.getColumnModel().getColumn(2).setPreferredWidth(400);
+        tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblUsuario.getColumnModel().getColumn(2).setPreferredWidth(400);
 
         //configura centralizaçao das colunas
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tblAdmin.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tblUsuario.getColumnModel().getColumn(0).setCellRenderer(centralizado);
     }
 
-    public void editarAdmin() {
-        if (tblAdmin.getSelectedRow() != -1) {
+    public void editarUsuario() {
+        if (tblUsuario.getSelectedRow() != -1) {
             Usuario a = new Usuario();
             DaoGenerico<Usuario> dao = new DaoGenerico<>();
             a.setNome(txtNome.getText());
             a.setLogin(txtLogin.getText());
             a.setSenha(txtSenha.getText());
-            a.setId((int) (tblAdmin.getValueAt(tblAdmin.getSelectedRow(), 0)));
+            a.setId((int) (tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0)));
             dao.saveOrUpdate(a);
         }
         limparCampos(0);
-        pesquisarAdmin();
+        pesquisarUsuario();
     }
 
-    public void deletarAdmin() {
-        if (tblAdmin.getSelectedRow() != -1) {
+    public void deletarUsuario() {
+        if (tblUsuario.getSelectedRow() != -1) {
             Usuario a = new Usuario();
             DaoGenerico<Usuario> dao = new DaoGenerico<>();
 
-            a.setId((int) (tblAdmin.getValueAt(tblAdmin.getSelectedRow(), 0)));
+            a.setId((int) (tblUsuario.getValueAt(tblUsuario.getSelectedRow(), 0)));
             dao.remove(Usuario.class, a.getId());
         }
         limparCampos();
         listarUsuarios();
     }
 
-    public void pesquisarAdmin() {
+    public void pesquisarUsuario() {
         UsuarioTableModel modelo = new UsuarioTableModel();
         DaoGenerico<Usuario> dao = new DaoGenerico<>();
         modelo.setListaUsuario(dao.findByNome(Usuario.class, txtPesquisar.getText(), "nome"));
-        tblAdmin.setModel(modelo);
+        tblUsuario.setModel(modelo);
         ajustaTabela();
     }
 
     public void selecionaItem() {
         DaoGenerico<Usuario> dao = new DaoGenerico<>();
-        int seleciona = tblAdmin.getSelectedRow();
-        int id = (int) tblAdmin.getModel().getValueAt(seleciona, 0);
+        int seleciona = tblUsuario.getSelectedRow();
+        int id = (int) tblUsuario.getModel().getValueAt(seleciona, 0);
         Usuario usuario = dao.findById(Usuario.class, id);
-        txtIdAdmin.setText(String.valueOf(usuario.getId()));
+        txtIdUsuario.setText(String.valueOf(usuario.getId()));
         txtNome.setText(usuario.getNome());
         txtLogin.setText(usuario.getLogin());
         txtSenha.setText(usuario.getSenha());
     }
 
     public void limparCampos() {
-        txtIdAdmin.setText(null);
+        txtIdUsuario.setText(null);
         txtNome.setText(null);
         txtLogin.setText(null);
         txtSenha.setText(null);
@@ -124,7 +124,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
     }
 
     public void limparCampos(Integer all) {
-        txtIdAdmin.setText(null);
+        txtIdUsuario.setText(null);
         txtNome.setText(null);
         txtLogin.setText(null);
         txtSenha.setText(null);
@@ -137,9 +137,9 @@ public class frmUsuario extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         txtPesquisar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAdmin = new javax.swing.JTable();
+        tblUsuario = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        txtIdAdmin = new javax.swing.JTextField();
+        txtIdUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -157,7 +157,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
-        setTitle("Cadastro de Administradores");
+        setTitle("Cadastro de Usuários");
         setMinimumSize(new java.awt.Dimension(475, 385));
         setPreferredSize(new java.awt.Dimension(475, 385));
 
@@ -170,7 +170,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
             }
         });
 
-        tblAdmin.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -181,21 +181,21 @@ public class frmUsuario extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblAdminMouseClicked(evt);
+                tblUsuarioMouseClicked(evt);
             }
         });
-        tblAdmin.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tblAdminKeyReleased(evt);
+                tblUsuarioKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblAdmin);
+        jScrollPane1.setViewportView(tblUsuario);
 
         jLabel1.setText("Código");
 
-        txtIdAdmin.setEditable(false);
+        txtIdUsuario.setEditable(false);
 
         jLabel2.setText("Nome");
 
@@ -215,7 +215,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtIdAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -234,7 +234,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(txtIdAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(42, 42, 42)))
@@ -379,41 +379,41 @@ public class frmUsuario extends javax.swing.JInternalFrame {
         if (txtNome.getText().isEmpty() || txtLogin.getText().isEmpty() || txtSenha.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Favor preencher todos os campos");
         } else {
-            cadastrarAdmin();
+            cadastrarUsuario();
         }
     }//GEN-LAST:event_CadastrarActionPerformed
 
     private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
-        pesquisarAdmin();
+        pesquisarUsuario();
     }//GEN-LAST:event_txtPesquisarKeyReleased
 
-    private void tblAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAdminMouseClicked
+    private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
         selecionaItem();
-    }//GEN-LAST:event_tblAdminMouseClicked
+    }//GEN-LAST:event_tblUsuarioMouseClicked
 
     private void LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimparActionPerformed
         limparCampos();
     }//GEN-LAST:event_LimparActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-        if (txtIdAdmin.getText().isEmpty() || txtNome.getText().isEmpty() || txtLogin.getText().isEmpty() || txtSenha.getText().isEmpty()) {
+        if (txtIdUsuario.getText().isEmpty() || txtNome.getText().isEmpty() || txtLogin.getText().isEmpty() || txtSenha.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Favor preencha todos os campos");
         } else {
-            editarAdmin();
+            editarUsuario();
         }
     }//GEN-LAST:event_EditarActionPerformed
 
     private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
-        if (txtIdAdmin.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Favor selecionar um Admin");
+        if (txtIdUsuario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Favor selecionar um Usuário");
         } else {
-            deletarAdmin();
+            deletarUsuario();
         }
     }//GEN-LAST:event_ExcluirActionPerformed
 
-    private void tblAdminKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblAdminKeyReleased
+    private void tblUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblUsuarioKeyReleased
         selecionaItem();
-    }//GEN-LAST:event_tblAdminKeyReleased
+    }//GEN-LAST:event_tblUsuarioKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -430,8 +430,8 @@ public class frmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAdmin;
-    private javax.swing.JTextField txtIdAdmin;
+    private javax.swing.JTable tblUsuario;
+    private javax.swing.JTextField txtIdUsuario;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisar;

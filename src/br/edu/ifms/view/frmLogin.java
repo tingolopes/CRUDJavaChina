@@ -52,8 +52,8 @@ public class frmLogin extends javax.swing.JFrame implements Autenticacao{
             ps.setString(2, txtSenha.getText());
             rs = ps.executeQuery();
             if (rs.next()) {
-                Integer idadmin = rs.getInt("id");
-                frmPrincipal frm = new frmPrincipal(idadmin);
+                Integer idusuario = rs.getInt("id");
+                frmPrincipal frm = new frmPrincipal(idusuario);
                 frm.setVisible(true); //torna visivel
                 dispose(); //fecha o form de login (quem chamou)
             } else {
