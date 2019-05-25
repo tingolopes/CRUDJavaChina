@@ -1,10 +1,10 @@
 package br.edu.ifms.view;
 
+import br.edu.ifms.connection.util.EncriptaSenha;
 import br.edu.ifms.model.Usuario;
 import br.edu.ifms.dao.DaoGenerico;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -41,7 +41,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
 
         a.setNome(txtNome.getText());
         a.setLogin(txtLogin.getText());
-        a.setSenha(txtSenha.getText());
+        a.setSenha(EncriptaSenha.encripta(txtSenha.getText()));
 
         dao.saveOrUpdate(a);
 

@@ -2,6 +2,9 @@ package br.edu.ifms.view;
 
 import java.sql.*;
 import br.edu.ifms.connection.ConectaDB;
+import br.edu.ifms.connection.util.EncriptaSenha;
+import br.edu.ifms.dao.LoginDAO;
+import br.edu.ifms.model.Usuario;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JOptionPane;
@@ -11,60 +14,38 @@ import javax.swing.JOptionPane;
  * @author Michell
  * @author Kleber
  */
-public class frmLogin extends javax.swing.JFrame implements Autenticacao{
+public class frmLogin extends javax.swing.JFrame {
 
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     BorderLayout layout = new BorderLayout();
-    
+
     public frmLogin() {
         initComponents();
         setLayout(layout);
-        ((FlowLayout)jPanel3.getLayout()).setAlignment(FlowLayout.CENTER);
-        add(jPanel3,BorderLayout.NORTH);
-        add(jPanel1,BorderLayout.CENTER);
+        ((FlowLayout) jPanel3.getLayout()).setAlignment(FlowLayout.CENTER);
+        add(jPanel3, BorderLayout.NORTH);
+        add(jPanel1, BorderLayout.CENTER);
         this.setLocationRelativeTo(null); //centro da tela
         conn = ConectaDB.conecta();
-        populaJComboBox();
     }
-    
-    @Override
-    public final void populaJComboBox(){
-        String sql = "select login from usuario order by login";
-        try{
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while(rs.next()){
-                cmbUsuario.addItem(rs.getString("login"));
-            }
-        }catch(SQLException error){
-            JOptionPane.showMessageDialog(null, error);
+
+    public void logar() {
+
+        Usuario usuario = (Usuario) new LoginDAO().findByLoginSenha(Usuario.class,
+                txtLogin.getText(), EncriptaSenha.encripta(txtSenha.getText()));
+
+        if (usuario == null) {
+            JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
+            txtSenha.setText("");
+        } else {
+            frmPrincipal frm = new frmPrincipal(usuario.getId());
+            frm.setVisible(true); //torna visivel
+            dispose(); //fecha o form de login (quem chamou)
         }
     }
 
-    @Override
-    public void logar() {
-        String sql = "SELECT id, login, senha FROM usuario WHERE login = ? AND senha = ?";
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, (String) cmbUsuario.getSelectedItem());
-            ps.setString(2, txtSenha.getText());
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                Integer idusuario = rs.getInt("id");
-                frmPrincipal frm = new frmPrincipal(idusuario);
-                frm.setVisible(true); //torna visivel
-                dispose(); //fecha o form de login (quem chamou)
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválidos");
-                txtSenha.setText("");
-            }
-        } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Erro");
-        }
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -73,7 +54,7 @@ public class frmLogin extends javax.swing.JFrame implements Autenticacao{
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        cmbUsuario = new javax.swing.JComboBox<>();
+        txtLogin = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
@@ -91,13 +72,7 @@ public class frmLogin extends javax.swing.JFrame implements Autenticacao{
 
         jLabel1.setText("Usuario");
         jPanel1.add(jLabel1);
-
-        cmbUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbUsuarioActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cmbUsuario);
+        jPanel1.add(txtLogin);
 
         jLabel2.setText("Senha");
         jPanel1.add(jLabel2);
@@ -163,10 +138,6 @@ public class frmLogin extends javax.swing.JFrame implements Autenticacao{
         logar();
     }//GEN-LAST:event_txtSenhaActionPerformed
 
-    private void cmbUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbUsuarioActionPerformed
-
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -177,7 +148,6 @@ public class frmLogin extends javax.swing.JFrame implements Autenticacao{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cmbUsuario;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -185,7 +155,8 @@ public class frmLogin extends javax.swing.JFrame implements Autenticacao{
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
-   
+
 }
