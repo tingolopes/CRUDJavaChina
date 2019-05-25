@@ -18,13 +18,9 @@ public class InsertTeste {
         Usuario u = new Usuario();
         u.setLogin("admin");
         u.setNome("admin");
-        u.setSenha("admin");
+        u.setSenha("ISMvKXpXpadDiUoOSoAfww==");
         new DaoGenerico<>().saveOrUpdate(u);
         
         System.out.println("teste");
-        System.out.println("teste");
-        System.out.println("teste");
-        System.out.println("teste");
-        
     }
 }

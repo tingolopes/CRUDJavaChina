@@ -1,5 +1,5 @@
 INSERT INTO `usuario` (`id`, `login`, `nome`, `senha`) VALUES
-(1, 'admin', 'admin', 'admin');
+(1, 'admin', 'admin', 'ISMvKXpXpadDiUoOSoAfww==');
 
 INSERT INTO `categoria` (`id`, `descricao`, `nome`) VALUES
 (1, 'Gêneros alimentícios', 'Alimentos'),
