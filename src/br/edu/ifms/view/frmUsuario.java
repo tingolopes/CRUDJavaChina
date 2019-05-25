@@ -407,7 +407,11 @@ public class frmUsuario extends javax.swing.JInternalFrame {
         if (txtIdUsuario.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Favor selecionar um Usuário");
         } else {
-            deletarUsuario();
+            int a = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir?",
+                    "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (a == JOptionPane.YES_OPTION) {
+                deletarUsuario();
+            }
         }
     }//GEN-LAST:event_ExcluirActionPerformed
 

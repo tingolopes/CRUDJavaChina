@@ -1,5 +1,8 @@
 package br.edu.ifms.view;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -8,25 +11,27 @@ package br.edu.ifms.view;
  */
 public class frmPrincipal extends javax.swing.JFrame {
 
-    private Integer idusuario;
+    private final Integer IDUSUARIO;
 
     public frmPrincipal(Integer idusuario) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH); //maximizado
-        this.idusuario = idusuario;
-    }
-
-    public frmPrincipal() {
-        initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH); //maximizado
-        this.idusuario = idusuario = 0;
+        this.IDUSUARIO = idusuario;
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/br/edu/ifms/image/fundo.jpg"));
+        Image image = icon.getImage();
+        jDesktopPane1 = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g){
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        }
+        ;
         jMenuBar1 = new javax.swing.JMenuBar();
         Cadastro = new javax.swing.JMenu();
         menuUsuario = new javax.swing.JMenuItem();
@@ -146,7 +151,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCategoriaActionPerformed
 
     private void menuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClienteActionPerformed
-        frmProduto form = new frmProduto(idusuario);
+        frmProduto form = new frmProduto(IDUSUARIO);
         form.setVisible(true);
         jDesktopPane1.add(form);
     }//GEN-LAST:event_menuClienteActionPerformed

@@ -15,30 +15,11 @@ public class DaoGenerico<T extends EntidadeBase> {
         return MANAGER.find(clazz, id);
     }
 
-    public <T> List<T> findByNome(Class<T> clazz, String nomeBusca, String nomeColuna) {
+    public <T> List<T> findByNome(Class<T> clazz, String busca, String coluna) {
         String tabela = clazz.getSimpleName();
-        String jpql = "from " + tabela + " where " + nomeColuna + " like :nomeBusca";
+        String jpql = "from " + tabela + " where " + coluna + " like :nomeBusca";
         Query query = MANAGER.createQuery(jpql, clazz);
-        query.setParameter("nomeBusca", nomeBusca + "%");
-        return (List<T>) query.getResultList();
-    }
-
-    //SQL com inner join em desenvolvimento
-    public <T> List<T> findByNome(Class<T> clazz, Class<T> clazz2, String nomeBusca, String nomeColuna, String nomeColuna2) {
-        String tabela = clazz.getSimpleName();
-        String tabela2 = clazz2.getSimpleName();
-
-        String sql = "Select p.idproduto, p.nome, p.preco, "
-                + "p.datacadastro, p.idadmin, p.idcategoria, c.categoria "
-                + "From produto p "
-                + "inner JOIN categoria c "
-                + "On p.idcategoria = c.idcategoria "
-                + "where (p.nome like ? or c.categoria like ?) " //pesquisa por nome do produto ou categoria
-                + "order by nome";
-
-        String jpql = "from " + tabela + " a inner join " + tabela2 + " b on a.id = b.id where " + nomeColuna + " like :nomeBusca";
-        Query query = MANAGER.createQuery(jpql, clazz);
-        query.setParameter("nomeBusca", nomeBusca + "%");
+        query.setParameter("nomeBusca", busca + "%");
         return (List<T>) query.getResultList();
     }
 
@@ -54,15 +35,12 @@ public class DaoGenerico<T extends EntidadeBase> {
             MANAGER.getTransaction().begin();
             if (obj.getId() == null) {
                 MANAGER.persist(obj);
-//                System.out.println("Inclusão de "+obj.getClass().getSimpleName()+" com ID "+obj.getId());
             } else {
                 MANAGER.merge(obj);
-//                System.out.println("Alteração de "+obj.getClass().getSimpleName()+" com ID "+obj.getId());
             }
             MANAGER.getTransaction().commit();
         } catch (Exception e) {
             MANAGER.getTransaction().rollback();
-//            System.out.println("Rollback de "+obj.getClass().getSimpleName()+" com ID "+obj.getId());
         }
     }
 

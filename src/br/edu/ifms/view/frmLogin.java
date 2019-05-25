@@ -16,9 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class frmLogin extends javax.swing.JFrame {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
     BorderLayout layout = new BorderLayout();
 
     public frmLogin() {
@@ -28,7 +25,6 @@ public class frmLogin extends javax.swing.JFrame {
         add(jPanel3, BorderLayout.NORTH);
         add(jPanel1, BorderLayout.CENTER);
         this.setLocationRelativeTo(null); //centro da tela
-        conn = ConectaDB.conecta();
     }
 
     public void logar() {
