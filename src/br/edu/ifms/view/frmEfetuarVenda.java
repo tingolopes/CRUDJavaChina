@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import br.edu.ifms.tablemodel.CupomFiscalTableModel;
+import br.edu.ifms.tablemodel.ItensVendaTableModel;
 
 /**
  *
@@ -29,6 +30,8 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmEfetuarVenda
      */
+    private DecimalFormat df = new DecimalFormat();
+
     public frmEfetuarVenda() {
         initComponents();
         this.setLocation(250, 100);
@@ -47,7 +50,23 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         jDetalhamentoCupom.add(jPanelTabela, BorderLayout.NORTH);
         jDetalhamentoCupom.add(jTotal);
         jTotal.setLayout(new FlowLayout());
+        bloqueiaPesquisaProduto();
+    }
 
+    public void bloqueiaPesquisaProduto() {
+        txtPesquisaProduto.setEnabled(false);
+        txtQtdProd.setEnabled(false);
+        jButonInserirProduto.setEnabled(false);
+        LimpaPesquisaProduto.setEnabled(false);
+        btnFechaVenda.setEnabled(false);
+    }
+
+    public void desbloqueiaPesquisaProduto() {
+        txtPesquisaProduto.setEnabled(true);
+        txtQtdProd.setEnabled(true);
+        jButonInserirProduto.setEnabled(true);
+        LimpaPesquisaProduto.setEnabled(true);
+        btnFechaVenda.setEnabled(true);
     }
 
     private Venda v;
@@ -94,14 +113,23 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
     }
 
     public void novaVenda() {
-        txtPesquisaCliente.setEnabled(false);
-        jButtonNovaVenda.setEnabled(false);
-        jButtonLimpaPesquisaCliente.setEnabled(false);
         v = new Venda();
         v.setCliente(new DaoGenerico<Cliente>().findById(Cliente.class, Integer.parseInt(txtIdCliente.getText())));
         v.setDatavenda(txtDataVenda.getDate());
         DaoGenerico<Venda> daov = new DaoGenerico<>();
-        daov.saveOrUpdate(v);
+        bloqueiaPesquisaCliente();
+    }
+
+    public void bloqueiaPesquisaCliente() {
+        txtPesquisaCliente.setEnabled(false);
+        jButtonNovaVenda.setEnabled(false);
+        jButtonLimpaPesquisaCliente.setEnabled(false);
+    }
+
+    public void desbloqueiaPesquisaCliente() {
+        txtPesquisaCliente.setEnabled(true);
+        jButtonNovaVenda.setEnabled(true);
+        jButtonLimpaPesquisaCliente.setEnabled(true);
     }
 
     public void inserirProduto() {
@@ -111,12 +139,9 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         DaoGenerico<ItensVenda> daoiv = new DaoGenerico<>();
         ItensVenda iv = new ItensVenda();
         iv.setVenda(v);
-
-        System.out.println("Produto "
-                + daop.findById(Produto.class, Integer.parseInt(txtIdProduto.getText())).toString()
-                + " adicionado a venda "
-                + v.getId());
-
+        if (tblCupomFiscal.getRowCount() == 0) {
+            daov.saveOrUpdate(v);
+        }
         iv.setProdutos(daop.findById(Produto.class, Integer.parseInt(txtIdProduto.getText())));
         iv.setQtd(Double.parseDouble(txtQtdProd.getText()));
         iv.setTotalProduto(Double.parseDouble(txtQtdProd.getText())
@@ -137,7 +162,6 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
         ajustaTabela();
 
         //seta total do cupom
-        DecimalFormat df = new DecimalFormat();
         df.applyPattern("R$ #,##0.00");
         Double soma = 0.0;
         List<ItensVenda> lista = dao.findByNome(ItensVenda.class, String.valueOf(pesquisaPorId), "id_venda");
@@ -613,6 +637,7 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Selecione o cliente", "ERRO", JOptionPane.ERROR_MESSAGE);
         } else {
             novaVenda();
+            desbloqueiaPesquisaProduto();
         }
     }//GEN-LAST:event_jButtonNovaVendaActionPerformed
 
@@ -633,7 +658,7 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtPesquisaClienteKeyReleased
 
     private void btnFechaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaVendaActionPerformed
-        v = null;
+        fechaVenda();
     }//GEN-LAST:event_btnFechaVendaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -672,4 +697,20 @@ public class frmEfetuarVenda extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPrecoProduto;
     private javax.swing.JTextField txtQtdProd;
     // End of variables declaration//GEN-END:variables
+
+    private void fechaVenda() {
+        v = null;
+        bloqueiaPesquisaProduto();
+        desbloqueiaPesquisaCliente();
+        if (tblCupomFiscal.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Nenhum produto inserido", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "Venda realizada com sucesso!", "MENSAGEM", JOptionPane.INFORMATION_MESSAGE);
+        }
+        tblCupomFiscal.setModel(new CupomFiscalTableModel());
+        ajustaTabela();
+        jLabelTotalCupom.setText(String.valueOf(df.format(0.0)));
+        txtIdCliente.setText("");
+        txtPesquisaCliente.setText("");
+    }
 }
