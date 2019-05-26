@@ -54,7 +54,7 @@ public class frmListaDeVendas extends javax.swing.JInternalFrame {
 
     public void ajustaTabelaVendas() {
         //seta tamanho das colunas
-        tblVendas.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblVendas.getColumnModel().getColumn(0).setPreferredWidth(30);
         tblVendas.getColumnModel().getColumn(1).setPreferredWidth(200);
         tblVendas.getColumnModel().getColumn(2).setPreferredWidth(120);
 

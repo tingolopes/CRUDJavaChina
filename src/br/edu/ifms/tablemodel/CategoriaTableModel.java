@@ -31,8 +31,8 @@ public class CategoriaTableModel extends AbstractTableModel {
 
         cabecalho.add("ID");
         cabecalho.add("Nome");
-        cabecalho.add("Qtde Produtos");
-        cabecalho.add("Total da Categoria");
+//        cabecalho.add("Qtde Produtos");
+//        cabecalho.add("Total da Categoria");
     }
 
     @Override
@@ -59,16 +59,16 @@ public class CategoriaTableModel extends AbstractTableModel {
             case 1:
                 //retornar o nome
                 return listaCategorias.get(rowIndex).getNome(); //Nome
-            case 2:
-                //retornar o Quantidade de Produtos
-//                return listaCategorias.get(rowIndex).getQtdProduto();
-                return "requisito adiado getQtdProduto()";
-            case 3:
-                //retornar o Soma por categoria
-                DecimalFormat df = new DecimalFormat();
-                df.applyPattern("R$ #,##0.00");
-//                return df.format(listaCategorias.get(rowIndex).getSomaCategoria());
-                return "requisito adiado getSomaCategoria()";
+//            case 2:
+//                //retornar o Quantidade de Produtos
+////                return listaCategorias.get(rowIndex).getQtdProduto();
+//                return "requisito adiado getQtdProduto()";
+//            case 3:
+//                //retornar o Soma por categoria
+//                DecimalFormat df = new DecimalFormat();
+//                df.applyPattern("R$ #,##0.00");
+////                return df.format(listaCategorias.get(rowIndex).getSomaCategoria());
+//                return "requisito adiado getSomaCategoria()";
             default:
                 return null;
         }

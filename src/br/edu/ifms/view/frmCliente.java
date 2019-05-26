@@ -51,7 +51,7 @@ public class frmCliente extends javax.swing.JInternalFrame {
 
     public void ajustaTabela() {
         //seta tamanho das colunas
-        tblCliente.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblCliente.getColumnModel().getColumn(0).setPreferredWidth(30);
         tblCliente.getColumnModel().getColumn(1).setPreferredWidth(250);
         tblCliente.getColumnModel().getColumn(2).setPreferredWidth(400);
 

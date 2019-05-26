@@ -59,7 +59,7 @@ public class frmUsuario extends javax.swing.JInternalFrame {
 
     public void ajustaTabela() {
         //seta tamanho das colunas
-        tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblUsuario.getColumnModel().getColumn(0).setPreferredWidth(30);
         tblUsuario.getColumnModel().getColumn(1).setPreferredWidth(250);
         tblUsuario.getColumnModel().getColumn(2).setPreferredWidth(400);
 
