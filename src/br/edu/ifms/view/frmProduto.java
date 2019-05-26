@@ -180,7 +180,7 @@ public class frmProduto extends javax.swing.JInternalFrame {
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(630, 610));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa por NOME ou CATEGORIA"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa por NOME"));
 
         txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
